@@ -9,6 +9,8 @@ Last updated: 12 Oct 2026.
 - [x] Checked the brochure was only a slice of the range, then collected current data from the ASUS Singapore store (132 laptops listed).
 - [x] Re-based the page on store prices and added 35 models. Replaced the original brochure pick (TUF F16 `FX608JHI-TU255W`, now S$2,199 and out of stock) with TUF A16 `FA608UHI-TU147W`, S$1,999.
 - [x] Committed to GitHub: https://github.com/wjlingg/laptopcompare (`main`).
+- [x] Deployed with GitHub Pages (legacy build from `main`, root): https://wjlingg.github.io/laptopcompare/
+- [x] Tested the live page on 12 Oct 2026: no console errors, 35 of 35 models listed, filters, reset, side-by-side and the fit calculator all work, no horizontal scroll. Real phone layout and the light theme on the live site were not checked.
 
 ## Current recommendation (12 Oct 2026)
 
@@ -30,6 +32,12 @@ The store blocks `WebFetch` (403), so use a browser session on `https://sg.store
 2. From inside a store tab, `fetch()` each category page, parse with `DOMParser`, and read `.product-item` text for name, part number, price (`Special Price` then regular price), CPU, GPU, RAM, SSD, and `Notify Me` (= out of stock).
 3. For display, refresh rate and RAM slot type, `fetch()` each product page (links are `https://sg.store.asus.com/asus-...html`) and read the text between `Technical Specifications:` and `Model No.`.
 4. Update `L` in the HTML, re-check the pick with the rule in `CLAUDE.md`, update the date in the eyebrow, notice, and the data comment, then run the checks in `CLAUDE.md`.
+
+## Deployment notes
+
+- Pages serves `index.html` at the site root. If the file is renamed, Pages falls back to rendering `README.md`.
+- After a push, the build takes about a minute or two, and GitHub caches pages for about 10 minutes. Check the build with `gh api repos/wjlingg/laptopcompare/pages/builds/latest --jq .status` (`building` / `built` / `errored`), then hard-refresh (Ctrl+Shift+R).
+- Each push should be followed by the checks in `CLAUDE.md`, run against the live URL.
 
 ## Known gaps and caveats
 

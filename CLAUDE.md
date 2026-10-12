@@ -38,3 +38,4 @@ Project: a single-file HTML guide and comparison tool for choosing an ASUS lapto
 - `WebFetch` gets HTTP 403 from `sg.store.asus.com`. Use a real browser (the built-in browser pane works).
 - The source PDF is scanned images with no text layer. Render pages to images to read them.
 - Store list pages hide spec text for non-gaming models until "See more" is opened; fetch each product page for the full spec line.
+- The site is deployed from `main` via GitHub Pages at https://wjlingg.github.io/laptopcompare/. Keep the page named `index.html`. Commit messages end with the Co-Authored-By line used in earlier commits.

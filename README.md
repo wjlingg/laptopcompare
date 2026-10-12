@@ -2,7 +2,9 @@
 
 A single-page guide to choosing an ASUS laptop in Singapore for day-to-day machine learning on a budget.
 
-Open `index.html` in any browser. No build step, no dependencies (it loads three Google Fonts and falls back to system fonts offline).
+**Live page: https://wjlingg.github.io/laptopcompare/**
+
+Or open `index.html` in any browser locally. No build step, no dependencies (it loads three Google Fonts and falls back to system fonts offline).
 
 ## What the page contains
 
