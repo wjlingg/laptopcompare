@@ -51,5 +51,4 @@ The store blocks `WebFetch` (403), so use a browser session on `https://sg.store
 - Include the non-GPU Vivobooks and Zenbooks with full specs, and weight/battery for TUF/ROG from ASUS product pages.
 - Track price history (date-stamped snapshots of `L`) so the page can show whether a price is a good deal.
 - Add a short "set up PyTorch with CUDA on Windows (WSL2)" section.
-- Done: GitHub Pages is on and serves `index.html` at https://wjlingg.github.io/laptopcompare/
 - Compare against other brands, or against renting cloud GPUs, for the same money.
