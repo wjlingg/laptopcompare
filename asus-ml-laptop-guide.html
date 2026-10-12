@@ -1,0 +1,614 @@
+<title>ASUS ML Laptop Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: datasheet-style single column. Verdict first, then a spec glossary, a fit calculator, and a compare tool. */
+:root{
+  --bg:#f2f5f4; --panel:#ffffff; --ink:#10201f; --muted:#4f625f; --line:#d4dddb;
+  --accent:#0b7a5c; --accent-ink:#ffffff; --accent-soft:#dff1ea;
+  --warn:#9a5200; --warn-soft:#fbeed8; --bad:#a3322b; --bad-soft:#f8e1de;
+  --font-display:'Archivo','Arial Narrow',Arial,sans-serif;
+  --font-body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1716; --panel:#152220; --ink:#e6efed; --muted:#9bb0ac; --line:#2a3b38;
+    --accent:#3fcf9f; --accent-ink:#06231a; --accent-soft:#16352c;
+    --warn:#f0b35c; --warn-soft:#3a2b12; --bad:#ff8f86; --bad-soft:#3d1e1b;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1716; --panel:#152220; --ink:#e6efed; --muted:#9bb0ac; --line:#2a3b38;
+  --accent:#3fcf9f; --accent-ink:#06231a; --accent-soft:#16352c;
+  --warn:#f0b35c; --warn-soft:#3a2b12; --bad:#ff8f86; --bad-soft:#3d1e1b;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;padding-inline:16px;padding-block:0}
+.wrap{max-width:1120px;margin-inline:auto;display:flex;flex-direction:column;gap:56px;padding-block:32px 72px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;letter-spacing:-.01em;max-width:20ch}
+h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--font-mono)}
+.num{font-variant-numeric:tabular-nums}
+.lede{font-size:1.125rem;max-width:62ch;color:var(--muted)}
+.lede strong{color:var(--ink)}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.95rem}
+nav.toc a{color:var(--ink);text-underline-offset:4px}
+section{display:flex;flex-direction:column;gap:20px;scroll-margin-top:16px}
+.sec-head{display:flex;flex-direction:column;gap:8px}
+.sec-head p{max-width:65ch;color:var(--muted)}
+
+/* verdict */
+.verdict{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px}
+.pick{background:var(--panel);border:2px solid var(--accent);border-radius:6px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.badge{align-self:flex-start;background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.price-line{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
+.price-big{font-family:var(--font-display);font-weight:800;font-size:2.25rem}
+.was{color:var(--muted);text-decoration:line-through}
+.save{color:var(--accent);font-weight:600}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 16px;font-size:.95rem;margin:0}
+.kv dt{color:var(--muted);font-family:var(--font-mono);font-size:.8rem;padding-top:2px}
+.kv dd{margin:0}
+.alts{display:flex;flex-direction:column;gap:12px}
+.alt{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.alt .tag{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.alt h3{font-size:1rem}
+.alt p{font-size:.92rem;color:var(--muted)}
+.notice{background:var(--warn-soft);color:var(--ink);border-left:4px solid var(--warn);padding:12px 16px;border-radius:0 4px 4px 0;font-size:.92rem;max-width:80ch}
+
+/* guide */
+.guide{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:16px}
+.spec{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.spec header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.prio{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;white-space:nowrap;border:1px solid var(--line);color:var(--muted)}
+.prio.hi{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.prio.mid{background:var(--accent-soft);border-color:var(--accent-soft);color:var(--ink)}
+.spec p,.spec li{font-size:.95rem}
+.spec ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+.spec .ml{border-top:1px dashed var(--line);padding-top:10px;color:var(--ink)}
+.spec .ml b{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.ladder{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.9rem;margin:0}
+.ladder dt{font-family:var(--font-mono);font-size:.82rem}
+.ladder dd{margin:0;color:var(--muted)}
+
+/* controls */
+.controls{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.field .lbl{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+select,input[type=range]{font:inherit;color:var(--ink)}
+select{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:8px 10px;min-height:40px}
+input[type=range]{accent-color:var(--accent);width:200px;max-width:100%}
+.check{display:flex;align-items:center;gap:8px;min-height:40px;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--accent)}
+button{font:inherit;cursor:pointer}
+.btn{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px 12px;min-height:40px}
+.btn:hover{border-color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.out{font-family:var(--font-mono)}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px}
+.calc>div{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.meter{display:flex;flex-direction:column;gap:6px}
+.meter .row{display:flex;justify-content:space-between;gap:12px;font-size:.9rem}
+.bar{height:12px;background:var(--bg);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bar i.over{background:var(--bad)}
+.verdict-line{font-weight:600}
+.ok{color:var(--accent)} .no{color:var(--bad)} .maybe{color:var(--warn)}
+
+/* compare */
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--panel);position:sticky;top:0;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr.sel{background:var(--accent-soft)}
+td.n{white-space:nowrap}
+.mname{font-weight:600}
+.msub{font-family:var(--font-mono);font-size:.75rem;color:var(--muted)}
+.chip{display:inline-block;font-family:var(--font-mono);font-size:.7rem;padding:1px 6px;border-radius:3px;border:1px solid var(--line);white-space:nowrap}
+.chip.cuda{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip.mem{background:var(--accent-soft);border-color:var(--accent-soft)}
+.chip.light{background:transparent}
+.chip.arm{background:var(--warn-soft);border-color:var(--warn-soft)}
+.cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.cmp{min-width:560px}
+.cmp th[scope=row]{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);white-space:nowrap;width:1%}
+.cmp thead th{vertical-align:bottom;white-space:normal;text-transform:none;letter-spacing:0;font-family:var(--font-body);font-size:.9rem;color:var(--ink)}
+.cmp td.best{background:var(--accent-soft);font-weight:600}
+.cmp .rm{margin-top:6px;font-size:.78rem;padding:2px 8px;min-height:0}
+.empty{padding:24px;color:var(--muted)}
+.small{font-size:.85rem;color:var(--muted);max-width:75ch}
+
+@media (max-width:760px){
+  .verdict,.calc{grid-template-columns:minmax(0,1fr)}
+  .wrap{gap:44px}
+  .pick{padding:18px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .bar i{transition:width .25s ease}
+}
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:16px">
+    <p class="eyebrow">ASUS Singapore online store &middot; prices read 12 Oct 2026 &middot; S$, GST included</p>
+    <h1>Which ASUS laptop for machine learning, without overpaying?</h1>
+    <p class="lede"><strong>Buy the TUF Gaming A16 with the RTX 5050 at S$1,999.</strong> It is the cheapest laptop on ASUS's Singapore store with 8GB of GPU memory, a 1TB SSD and upgradeable RAM, and the NVIDIA GPU is the one part that really matters for training models. Below: why, what every spec means, a calculator for what fits in memory, and a tool to compare 35 current models side by side.</p>
+    <nav class="toc" aria-label="Page sections">
+      <a href="#pick">The pick</a><a href="#guide">Specs explained</a><a href="#fit">Will my model fit?</a><a href="#compare">Compare models</a>
+    </nav>
+  </header>
+
+  <section id="pick">
+    <div class="verdict">
+      <article class="pick">
+        <span class="badge">Best value for ML</span>
+        <div>
+          <h2>ASUS TUF Gaming A16</h2>
+          <p class="mono" style="color:var(--muted);font-size:.85rem">FA608UHI-TU147W</p>
+        </div>
+        <div class="price-line">
+          <span class="price-big num">S$1,999</span>
+          <span class="was num">S$2,899</span>
+          <span class="save num">save S$900</span>
+        </div>
+        <dl class="kv">
+          <dt>GPU</dt><dd>NVIDIA GeForce RTX 5050, 8GB VRAM. Runs CUDA, which PyTorch and TensorFlow expect.</dd>
+          <dt>CPU</dt><dd>AMD Ryzen 7 260, 8 cores, up to 5.1GHz. Fine for data prep at this level.</dd>
+          <dt>RAM</dt><dd>16GB DDR5 in an upgradeable SO-DIMM slot. Going to 32GB later is the first upgrade to make.</dd>
+          <dt>Storage</dt><dd>1TB PCIe 4.0 NVMe. Room for datasets and checkpoints.</dd>
+          <dt>Screen</dt><dd>16&Prime; 1920&times;1200, 16:10, 144Hz, 300 nits.</dd>
+        </dl>
+        <p class="small">Trade-offs: only 8GB of VRAM, so it is for small and mid-size models. It is a gaming chassis, so expect more weight and fan noise than a Vivobook. The store gives no weight or battery figure for it. The TUF F16 I would have picked from the brochure (FX608JHI-TU255W, 16 CPU cores) is now S$2,199 and out of stock.</p>
+      </article>
+
+      <div class="alts">
+        <article class="alt">
+          <span class="tag">If you can stretch</span>
+          <h3>TUF Gaming A16 &middot; RTX 5070 &middot; S$2,599</h3>
+          <p>Roughly 80% more CUDA cores for 30% more money, plus a sharper 2.5K 165Hz screen. This is the best price per unit of GPU compute among the 8GB-VRAM models. Same 8GB VRAM and the same 8 CPU cores.</p>
+        </article>
+        <article class="alt">
+          <span class="tag">If you want to spend less</span>
+          <h3>Vivobook 14 &middot; Core 7 350 &middot; S$1,299</h3>
+          <p>No NVIDIA GPU. Good for notebooks, scikit-learn, pandas and learning. Use free cloud GPUs (Colab, Kaggle) when you need to train. Its DDR5 has an upgrade slot. The S$1,099 Core 5 version is the cheapest sensible option.</p>
+        </article>
+        <article class="alt">
+          <span class="tag">Cheap NVIDIA, with a catch</span>
+          <h3>TUF F16 RTX 4050 &middot; S$1,599</h3>
+          <p>S$400 less than the pick, but the RTX 4050 has 6GB of VRAM and this model has a 512GB SSD. The ASUS Gaming V16 (RTX 3050, S$1,299) is cheaper still, with 4&ndash;6GB.</p>
+        </article>
+        <article class="alt">
+          <span class="tag">Not worth it for this job</span>
+          <h3>RTX 5060 step-up, Snapdragon, ProArt</h3>
+          <p>The RTX 5060 costs S$500 more than the pick for about 30% more CUDA cores and still 8GB. Snapdragon (Zenbook A14) has weak ML tool support. ProArt PX13 (from S$4,399) has 64GB or more of memory, but is far beyond &ldquo;decent&rdquo;.</p>
+        </article>
+      </div>
+    </div>
+    <p class="notice"><strong>Prices were read from sg.store.asus.com on 12 Oct 2026</strong> and change often, so confirm before buying. Those prices differ from your August brochure (the ROG G614PM went from S$2,799 to S$2,999, for example). Retailers such as Challenger or Harvey Norman may price differently. The store does not list VRAM; VRAM and CUDA core counts come from NVIDIA's public specs.</p>
+  </section>
+
+  <section id="guide">
+    <div class="sec-head">
+      <p class="eyebrow">Specs explained</p>
+      <h2>What each line on the spec sheet means</h2>
+      <p>Cards are ordered by how much they matter for machine learning. The tag in the corner shows that priority.</p>
+    </div>
+    <div class="guide">
+      <article class="spec">
+        <header><h3>Graphics card (GPU) and VRAM</h3><span class="prio hi">Matters most</span></header>
+        <p>The GPU does the heavy maths in training. VRAM is the GPU's own memory: the model, its gradients and a batch of data must fit inside it.</p>
+        <ul>
+          <li><b>NVIDIA GeForce RTX</b> supports CUDA, the software layer almost every ML library is built on.</li>
+          <li><b>AMD Radeon, Intel Arc/Graphics, Qualcomm Adreno</b> are fine for screens and video, but have patchy support for ML training.</li>
+          <li><b>VRAM</b> by GPU (NVIDIA's figures, the store does not list it): RTX 3050 4&ndash;6GB, RTX 4050 6GB, RTX 5050 / 5060 / 5070 8GB, RTX 5070 Ti 12GB, RTX 5080 16GB.</li>
+        </ul>
+        <p class="ml"><b>For ML</b> Look for an RTX card first and treat the model number (5050 &lt; 5060 &lt; 5070) as a speed grade. VRAM is what limits model size, and it is 8GB from the RTX 5050 through the 5070. Only the 5070 Ti and 5080 laptops (S$4,499 and up) offer more.</p>
+      </article>
+
+      <article class="spec">
+        <header><h3>RAM (memory)</h3><span class="prio hi">High</span></header>
+        <p>Working memory for the whole computer. Datasets, pandas tables, the browser and Windows all share it.</p>
+        <ul>
+          <li><b>16GB</b> is the floor. <b>32GB</b> is comfortable for ML work.</li>
+          <li><b>DDR5</b> usually sits in a slot you can upgrade later. The brochure's &ldquo;RAM Slot: 1&rdquo; shows this for Vivobooks.</li>
+          <li><b>LPDDR5/LPDDR5X</b> is faster and uses less power, but is soldered to the board. Whatever you buy is what you keep.</li>
+        </ul>
+        <p class="ml"><b>For ML</b> Prefer upgradeable DDR5, or buy 32GB up front if the RAM is soldered.</p>
+      </article>
+
+      <article class="spec">
+        <header><h3>Processor (CPU)</h3><span class="prio mid">Medium</span></header>
+        <p>Runs your code, prepares data and feeds the GPU. More cores speeds up data loading and preprocessing.</p>
+        <ul>
+          <li><b>&ldquo;up to 5.2GHz&rdquo;</b> is the short-burst boost speed, not the everyday speed.</li>
+          <li><b>HX / H</b> chips (i7-14650HX, Ryzen 9 8940HX, Core Ultra 7 255H) are high-power and fast. <b>U / V</b> chips (Core 7 150U, Ultra 7 258V) favour battery life.</li>
+          <li><b>Core Ultra</b> is Intel, <b>Ryzen AI</b> is AMD, <b>Snapdragon X</b> is Qualcomm on ARM.</li>
+        </ul>
+        <p class="ml"><b>For ML</b> ARM (Snapdragon) laptops run Windows fine, but many Python ML packages and drivers lack ARM builds. Stay on Intel or AMD.</p>
+      </article>
+
+      <article class="spec">
+        <header><h3>Storage (SSD)</h3><span class="prio mid">Medium</span></header>
+        <p>Where files live. All laptops here use M.2 NVMe SSDs, which are many times faster than old hard drives.</p>
+        <ul>
+          <li><b>PCIe 4.0</b> is faster than <b>PCIe 3.0</b> (the Go 15, Flip and S16 use 3.0). Day to day you will barely notice.</li>
+          <li><b>512GB</b> fills quickly: Windows, Python environments, CUDA and datasets add up. <b>1TB</b> is the practical target.</li>
+        </ul>
+        <p class="ml"><b>For ML</b> Capacity matters more than speed. Checkpoints and datasets are large.</p>
+      </article>
+
+      <article class="spec">
+        <header><h3>NPU and &ldquo;TOPS&rdquo;</h3><span class="prio">Low for training</span></header>
+        <p>A small chip for always-on AI features (background blur, Copilot+ PC functions, running small models cheaply). TOPS is trillions of operations per second.</p>
+        <ul>
+          <li>Microsoft's Copilot+ PC badge requires 40 TOPS or more. Most Ryzen AI, Core Ultra V and Snapdragon models qualify.</li>
+          <li>Gaming laptops carry a small NPU (16 TOPS on the TUF Ryzen models) or none, because they rely on the GPU instead.</li>
+        </ul>
+        <p class="ml"><b>For ML</b> Mainstream training frameworks do not use the NPU. Ignore its TOPS number when choosing a machine for training.</p>
+      </article>
+
+      <article class="spec">
+        <header><h3>Display</h3><span class="prio">Daily comfort</span></header>
+        <dl class="ladder">
+          <dt>FHD</dt><dd>1920&times;1080, 16:9</dd>
+          <dt>FHD+</dt><dd>1920&times;1200, 16:10, a bit taller</dd>
+          <dt>2.5K</dt><dd>2560&times;1600, sharper text</dd>
+          <dt>3K</dt><dd>2880&times;1800, the sharpest on offer</dd>
+        </dl>
+        <ul>
+          <li><b>OLED</b> gives deep blacks and rich colour; <b>IPS</b> is cheaper and brighter in daylight.</li>
+          <li><b>144Hz / 165Hz / 300Hz</b> is how many times the picture refreshes per second. Smoother scrolling, mostly for games.</li>
+          <li><b>16:10</b> shows more lines of code than 16:9.</li>
+        </ul>
+        <p class="ml"><b>For ML</b> Code and notebooks favour 16:10 and a sharper panel. Refresh rate is a nice extra only.</p>
+      </article>
+
+      <article class="spec">
+        <header><h3>Ports and wireless</h3><span class="prio">Low</span></header>
+        <ul>
+          <li><b>USB speeds:</b> 5Gbps (USB 3.2 Gen 1) &lt; 10Gbps (Gen 2) &lt; 20Gbps &lt; 40Gbps (USB4 / Thunderbolt 4). Fast external drives need 10Gbps or more.</li>
+          <li><b>Type-C with display / power delivery</b> can charge the laptop and drive a monitor.</li>
+          <li><b>HDMI 2.1</b> handles 4K at high refresh. HDMI 1.4 is fine for a basic monitor.</li>
+          <li><b>Wi-Fi 6 / 6E / 7</b> and <b>Bluetooth 5.x</b>: newer is faster and more stable, but any of them works for downloading datasets.</li>
+          <li><b>LAN: No</b> on every model listed, so a wired connection needs a USB adapter.</li>
+        </ul>
+      </article>
+
+      <article class="spec">
+        <header><h3>Weight, battery, cooling</h3><span class="prio">Lifestyle</span></header>
+        <p>The Zenbook A14 is 980g. The Vivobooks sit between 1.4 and 1.9kg. The store pages give no weight for the TUF and ROG laptops; expect them to be heavier.</p>
+        <p class="ml"><b>For ML</b> Training on battery throttles the GPU. Plan to plug in. Gaming laptops cool better, so they hold their speed longer, at the cost of bulk and noise.</p>
+      </article>
+
+      <article class="spec">
+        <header><h3>Warranty and extras</h3><span class="prio">Minor</span></header>
+        <p>Every model on the store lists <b>2 Years International Warranty</b>. The brochure's Vivobook, Zenbook and ProArt tables add Pickup &amp; Return Service (worth $129), and some ROG and Zephyrus models include accidental damage cover in year one. Bundles add a backpack, sleeve, stylus, McAfee antivirus or Xbox Game Pass.</p>
+      </article>
+
+      <article class="spec">
+        <header><h3>Reading model numbers</h3><span class="prio">Tip</span></header>
+        <ul>
+          <li><b>FX608JHI-TU255W</b>: the front part is the platform (TUF F16), the suffix is the exact sales configuration. Always match the whole code when comparing shops.</li>
+          <li><b>U.P.</b> is the usual price. The red figure is the promo price.</li>
+          <li>On Windows, install <b>WSL2</b> to use CUDA PyTorch the way tutorials assume.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="fit">
+    <div class="sec-head">
+      <p class="eyebrow">Interactive</p>
+      <h2>Will my model fit in my GPU's VRAM?</h2>
+      <p>Pick a model size and what you want to do with it. Numbers are rule-of-thumb estimates (weights plus overhead), good enough to tell &ldquo;easily&rdquo; from &ldquo;no chance&rdquo;.</p>
+    </div>
+    <div class="calc">
+      <div>
+        <div class="field">
+          <label for="c-size">Model size</label>
+          <select id="c-size">
+            <option value="0.1">Small CNN / classic ML (~0.1B)</option>
+            <option value="0.5">0.5B parameters</option>
+            <option value="1">1B parameters</option>
+            <option value="3">3B parameters</option>
+            <option value="7" selected>7B parameters</option>
+            <option value="13">13B parameters</option>
+            <option value="70">70B parameters</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="c-mode">What are you doing?</label>
+          <select id="c-mode">
+            <option value="infer" selected>Running it (inference)</option>
+            <option value="qlora">Fine-tuning with QLoRA (4-bit base)</option>
+            <option value="full">Full training from scratch</option>
+          </select>
+        </div>
+        <div class="field" id="c-prec-field">
+          <label for="c-prec">Precision (how compressed)</label>
+          <select id="c-prec">
+            <option value="2">16-bit (FP16 / BF16)</option>
+            <option value="1">8-bit</option>
+            <option value="0.5" selected>4-bit</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="c-vram">GPU VRAM (GB)</label>
+          <select id="c-vram">
+            <option value="6">6GB (RTX 4050)</option>
+            <option value="8" selected>8GB (RTX 5050 / 5060 / 5070)</option>
+            <option value="12">12GB (RTX 5070 Ti, from S$4,499)</option>
+            <option value="16">16GB (RTX 5080, from S$5,499)</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <div class="meter">
+          <div class="row"><span>Estimated memory needed</span><span class="out num" id="c-need">—</span></div>
+          <div class="bar" aria-hidden="true"><i id="c-bar" style="width:0"></i></div>
+          <div class="row small"><span>0</span><span id="c-cap">8GB VRAM</span></div>
+        </div>
+        <p class="verdict-line" id="c-verdict"></p>
+        <p class="small" id="c-detail"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="compare">
+    <div class="sec-head">
+      <p class="eyebrow">Interactive</p>
+      <h2>Compare the laptops</h2>
+      <p>Filter the list, then tick up to four models. The best value in each row is highlighted. It holds every NVIDIA laptop up to the cheapest RTX 5080 (plus the ROG Zephyrus G14 and ProArt P16), and the Vivobook, Zenbook and ProArt models from your brochure at current prices. The store has about 130 laptops in total, mostly business and thin-and-light models without a GPU.</p>
+    </div>
+
+    <div class="controls" role="group" aria-label="Filters">
+      <div class="field">
+        <label for="f-price">Max price: <span class="out num" id="f-price-out">S$7,000</span></label>
+        <input id="f-price" type="range" min="700" max="7000" step="100" value="7000">
+      </div>
+      <div class="field">
+        <label for="f-ram">Minimum RAM</label>
+        <select id="f-ram">
+          <option value="0">Any</option><option value="16">16GB</option><option value="32">32GB</option><option value="64">64GB</option>
+        </select>
+      </div>
+      <label class="check"><input id="f-nv" type="checkbox"> NVIDIA GPU only</label>
+      <div class="field">
+        <label for="f-sort">Sort by</label>
+        <select id="f-sort">
+          <option value="price">Price, low to high</option>
+          <option value="cuda">CUDA cores, high to low</option>
+          <option value="value">S$ per 1,000 CUDA cores</option>
+          <option value="ram">RAM, high to low</option>
+          <option value="ssd">Storage, high to low</option>
+        </select>
+      </div>
+      <button class="btn" id="f-reset" type="button">Reset</button>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:10px">Side by side <span class="mono small" id="sel-count"></span></h3>
+      <div class="cmp-wrap" id="cmp"></div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:10px">All models <span class="mono small" id="list-count"></span></h3>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Compare</th><th>Model</th><th>Price</th><th>CPU</th><th>GPU</th><th>RAM</th><th>Storage</th><th>Screen</th><th>ML fit</th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="small">Prices and specs: ASUS Singapore online store, 12 Oct 2026. The Vivobook 16 X1605VA is no longer on the store list, so its price is from the August brochure. VRAM and CUDA core counts are NVIDIA's published figures. Cores are only comparable within one GPU generation (30, 40 or 50 series), and real speed also depends on each laptop's power limit and cooling, so treat S$ per 1,000 cores as a guide, not a benchmark. &ldquo;&mdash;&rdquo; or &ldquo;not stated&rdquo; means the store page does not say.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  /* Source: ASUS Singapore online store (sg.store.asus.com), read 12 Oct 2026, GST-inclusive S$.
+     Spec details from each product page. src:'b' = not on the store list; price is from the Aug 2026 brochure.
+     cuda/vram for GPUs = NVIDIA public specs (store pages do not list VRAM). oos = "Notify Me" on the store. */
+  var GPU={
+    '3050':{gpu:'NVIDIA RTX 3050',nv:1,vram:4,vramText:'4–6GB (not stated)',cuda:2048,gen:'30'},
+    '4050':{gpu:'NVIDIA RTX 4050',nv:1,vram:6,cuda:2560,gen:'40'},
+    '5050':{gpu:'NVIDIA RTX 5050',nv:1,vram:8,cuda:2560,gen:'50'},
+    '5060':{gpu:'NVIDIA RTX 5060',nv:1,vram:8,cuda:3328,gen:'50'},
+    '5070':{gpu:'NVIDIA RTX 5070',nv:1,vram:8,cuda:4608,gen:'50'},
+    '5070ti':{gpu:'NVIDIA RTX 5070 Ti',nv:1,vram:12,cuda:5888,gen:'50'},
+    '5080':{gpu:'NVIDIA RTX 5080',nv:1,vram:16,cuda:7680,gen:'50'}
+  };
+  function g(id,name,model,price,up,cpu,cores,boost,gpu,ram,ramType,slot,ssd,size,w,h,panel,hz,x){
+    var o={id:id,name:name,model:model,price:price,up:up,cpu:cpu,cores:cores,boost:boost,ram:ram,ramType:ramType,slot:slot,ssd:ssd,pcie:'4.0',size:size,w:w,h:h,panel:panel,hz:hz,touch:0,kg:null,fit:'cuda'};
+    var k;for(k in GPU[gpu])o[k]=GPU[gpu][k];
+    for(k in (x||{}))o[k]=x[k];
+    return o;
+  }
+  var SO='DDR5 SO-DIMM', AG='Anti-glare';
+  var L=[
+   /* no NVIDIA GPU */
+   {id:'go15',name:'Vivobook Go 15',model:'E1504FA-BQ4278W',price:749,up:999,cpu:'AMD Ryzen 5 40',cores:4,boost:4.3,gpu:'AMD Radeon Graphics',nv:0,vram:0,ram:8,ramType:'LPDDR5',slot:'Soldered',ssd:512,pcie:'3.0',size:15.6,w:1920,h:1080,panel:'IPS-level',hz:null,touch:0,kg:1.63,fit:'light'},
+   {id:'v14c5',name:'Vivobook 14',model:'X1404MA-EB136W',price:1099,up:1799,cpu:'Intel Core 5 Processor 320',cores:6,boost:4.6,gpu:'Intel Graphics',nv:0,vram:0,ram:16,ramType:'DDR5',slot:'1 slot',ssd:512,pcie:'4.0',size:14,w:1920,h:1080,panel:'FHD 16:9',hz:60,touch:0,kg:1.40,kgText:'1.40kg (14″)',fit:'light'},
+   {id:'v14c7',name:'Vivobook 14',model:'X1404MA-EB176W',price:1299,up:1899,cpu:'Intel Core 7 Processor 350',cores:6,boost:4.8,gpu:'Intel Graphics',nv:0,vram:0,npu:17,ram:16,ramType:'DDR5',slot:'SO-DIMM, 1 slot',ssd:512,pcie:'4.0',size:14,w:1920,h:1080,panel:'FHD 16:9',hz:60,touch:0,kg:1.40,kgText:'1.40kg (14″)',fit:'light'},
+   {id:'v16u7',name:'Vivobook 16',model:'X1607CA-MB009W',price:1649,up:1999,cpu:'Intel Core Ultra 7 255H',cores:16,boost:5.1,gpu:'Intel Graphics',nv:0,vram:0,ram:16,ramType:'DDR5',slot:'1 slot',ssd:1024,pcie:'4.0',size:16,w:1920,h:1200,panel:'IPS',hz:null,touch:0,kg:null,fit:'light'},
+   {id:'v16c9',name:'Vivobook 16',model:'X1605VA-MB2822W',price:1749,up:2099,src:'b',cpu:'Intel Core 9 Processor 270H',cores:14,boost:5.8,gpu:'Intel Graphics',nv:0,vram:0,ram:16,ramType:'DDR5',slot:'1 slot',ssd:1024,pcie:'4.0',size:16,w:1920,h:1200,panel:'IPS',hz:null,touch:0,kg:1.68,kgText:'1.60 / 1.68kg',fit:'light'},
+   {id:'s14',name:'Vivobook S14/S16',model:'S3407CA-SF143W',price:1799,up:2299,cpu:'Intel Core Ultra 7 255H',cores:16,boost:5.1,gpu:'Intel Graphics',nv:0,vram:0,ram:16,ramType:'DDR5',slot:'1 slot',ssd:1024,pcie:'4.0',size:14,w:1920,h:1200,panel:'OLED',hz:null,touch:0,kg:1.40,kgText:'1.40 / 1.70kg',fit:'light'},
+   {id:'a14',name:'Zenbook A14',model:'UX3407QA-QD232W',price:1799,up:null,cpu:'Snapdragon X X1 26 100',cores:8,boost:2.97,gpu:'Qualcomm Adreno GPU',nv:0,vram:0,npu:45,ram:16,ramType:'LPDDR5X',slot:'Soldered',ssd:1024,pcie:'4.0',size:14,w:1920,h:1200,panel:'OLED',hz:null,touch:0,kg:0.98,fit:'arm'},
+   {id:'flip',name:'Vivobook 14 Flip',model:'TP3407SA-SG155W',price:1999,up:2099,cpu:'Intel Core Ultra 7 258V',cores:8,boost:4.8,gpu:'Intel Arc Graphics',nv:0,vram:0,npu:47,ram:32,ramType:'LPDDR5X',slot:'Soldered',ssd:1024,pcie:'3.0',size:14,w:1920,h:1200,panel:'OLED',hz:null,touch:1,kg:1.57,fit:'light'},
+   {id:'s16',name:'Vivobook S16',model:'M3607GA-SH053W',price:2199,up:2599,cpu:'AMD Ryzen AI 7 445',cores:6,boost:4.6,gpu:'AMD Radeon Graphics',nv:0,vram:0,npu:50,ram:32,ramType:'DDR5',slot:'1 slot',ssd:1024,pcie:'3.0',size:16,w:1920,h:1200,panel:'OLED',hz:null,touch:0,kg:1.70,kgText:'1.40 / 1.70kg',fit:'light'},
+   {id:'px13b',name:'ProArt PX13',model:'HN7306EA-LX065W',price:4399,up:4699,cpu:'AMD Ryzen AI MAX+ 395',cores:16,boost:5.1,gpu:'AMD Radeon Graphics',nv:0,vram:0,npu:50,ram:64,ramType:'LPDDR5X',slot:'Soldered',ssd:1024,pcie:'4.0',size:13.3,w:2880,h:1800,panel:'OLED',hz:null,touch:1,kg:1.39,fit:'mem'},
+   {id:'px13',name:'ProArt PX13 GoPro Edition',model:'HN7306EAC-LX044W',price:5299,up:5599,cpu:'AMD Ryzen AI MAX+ 395',cores:16,boost:5.1,gpu:'AMD Radeon Graphics',nv:0,vram:0,npu:50,ram:128,ramType:'LPDDR5X',slot:'Soldered',ssd:1024,pcie:'4.0',size:13.3,w:2880,h:1800,panel:'OLED',hz:null,touch:1,kg:1.39,fit:'mem'},
+   /* NVIDIA GPU: entry (RTX 30/40 series) */
+   g('v16','ASUS Gaming V16','V3607VJ-TK236W',1299,1999,'Intel Core 5 Processor 210H',8,4.8,'3050',16,'DDR5','Not stated',512,16,1920,1200,'WUXGA',144),
+   g('a15','TUF Gaming A15','FA506NCG-HN327W',1399,1999,'AMD Ryzen 7 8845H',8,5.1,'3050',16,SO,'SO-DIMM',512,15.6,1920,1080,'FHD 16:9',144),
+   g('f16c','TUF Gaming F16','FX607VU-RL461W',1599,2299,'Intel Core 5 Processor 210H',8,4.8,'4050',16,SO,'SO-DIMM',512,16,1920,1200,AG,144),
+   g('a16c','TUF Gaming A16','FA607NUQ-RL016W',1599,2299,'AMD Ryzen 7 170',8,4.75,'4050',16,SO,'SO-DIMM',512,16,1920,1200,AG,144),
+   /* NVIDIA GPU: RTX 5050 */
+   g('a16d','TUF Gaming A16','FA608UHI-TU147W',1999,2899,'AMD Ryzen 7 260',8,5.1,'5050',16,SO,'SO-DIMM',1024,16,1920,1200,AG,144,{pick:1}),
+   g('t16a','TUF Gaming 16','FX610JH-TU044W',1999,2599,'Intel Core i5-14450HX',10,4.8,'5050',16,'DDR5','Not stated',512,16,1920,1200,AG,144),
+   g('g16d','ROG Strix G16','G615JHR-RV184W',1999,2699,'Intel Core i5-14450HX',10,4.8,'5050',16,'DDR5','Not stated',512,16,1920,1200,AG,165),
+   g('f16a','TUF Gaming F16','FX608JHI-TU255W',2199,3199,'Intel Core i7-14650HX',16,5.2,'5050',16,SO,'SO-DIMM',1024,16,1920,1200,AG,144,{oos:1}),
+   g('t16b','TUF Gaming 16','FX610JH-TU084W',2199,2899,'Intel Core i7-14650HX',16,5.2,'5050',16,'DDR5','Not stated',512,16,1920,1200,AG,144),
+   g('t16c','TUF Gaming 16','FX610JH-TU045W',2299,3099,'Intel Core i7-14650HX',16,5.2,'5050',16,SO,'SO-DIMM',1024,16,1920,1200,AG,144),
+   g('a14t','TUF Gaming A14','FA401UH-RG046W',2599,3099,'AMD Ryzen 7 260',8,5.1,'5050',16,'LPDDR5X','Soldered',1024,14,2560,1600,AG,165),
+   /* NVIDIA GPU: RTX 5060 / 5070 */
+   g('a16e','TUF Gaming A16','FA608UMI-TU195W',2499,3099,'AMD Ryzen 7 260',8,5.1,'5060',16,SO,'SO-DIMM',1024,16,1920,1200,AG,144),
+   g('f16b','TUF Gaming F16','FX608JMI-TU279W',2599,3399,'Intel Core i7-14650HX',16,5.2,'5060',16,SO,'SO-DIMM',1024,16,1920,1200,AG,144),
+   g('t16d','TUF Gaming 16','FX610JM-TU040W',2599,3099,'Intel Core i7-14650HX',16,5.2,'5060',16,'DDR5','Not stated',1024,16,1920,1200,AG,144),
+   g('a16','TUF Gaming A16','FA608UP-QT115W',2599,3599,'AMD Ryzen 7 260',8,5.1,'5070',16,SO,'SO-DIMM',1024,16,2560,1600,AG,165),
+   g('g16a','ROG Strix G16','G614PM-RV145W',2999,3499,'AMD Ryzen 9 8940HX',16,5.3,'5060',16,SO,'SO-DIMM',1024,16,1920,1200,AG,165),
+   g('f16d','TUF Gaming F16','FX608JPR-QT046W',3299,4599,'Intel Core i7-14650HX',16,5.2,'5070',32,SO,'SO-DIMM (2×16GB)',1024,16,2560,1600,AG,165),
+   g('g16b','ROG Strix G16','G614PP-RV030W',3699,4899,'AMD Ryzen 9 8940HX',16,5.3,'5070',32,SO,'SO-DIMM (2×16GB)',1024,16,1920,1200,AG,165),
+   g('g16c','ROG Strix G16','G615JPR-TS208W',3999,5099,'Intel Core i7-14650HX',16,5.2,'5070',32,SO,'SO-DIMM (2×16GB)',1024,16,2560,1600,'Nebula anti-glare',300),
+   /* NVIDIA GPU: more VRAM, or premium builds */
+   g('g16e','ROG Strix G16','G614PR-TS161W',4499,5499,'AMD Ryzen 9 8940HX',16,5.3,'5070ti',32,SO,'SO-DIMM (2×16GB)',1024,16,2560,1600,'Nebula anti-glare',300),
+   g('g14','ROG Zephyrus G14','GA403GM-SY126W',4899,5099,'AMD Ryzen AI 9 465',10,5.0,'5060',32,'LPDDR5X','Soldered',1024,14,2880,1800,'OLED',120,{npu:50}),
+   g('g16f','ROG Strix G16','G614PW-RV105W',5499,null,'AMD Ryzen 9 8940HX',16,5.3,'5080',16,SO,'SO-DIMM',1024,16,1920,1200,AG,165),
+   g('p16a','ProArt P16','H7606WM-SR135W',5099,null,'AMD Ryzen AI 9 HX 370',12,5.1,'5060',32,'LPDDR5X','Soldered',1024,16,2880,1800,'OLED touch',null,{npu:50,touch:1,kg:1.85,pcie:'4.0'}),
+   g('p16b','ProArt P16','H7606WP-SR245W',6799,null,'AMD Ryzen AI 9 HX 370',12,5.1,'5070',64,'LPDDR5X','Soldered',2048,16,2880,1800,'OLED touch',null,{npu:50,touch:1,kg:1.85})
+  ];
+  L.forEach(function(x){
+    x.px=x.w*x.h;
+    x.value=(x.price&&x.cuda)?x.price/(x.cuda/1000):null;
+  });
+  var FIT={cuda:['CUDA-ready','cuda'],light:['CPU-only, light ML','light'],arm:['ARM, limited tools','arm'],mem:['Big-memory inference','mem']};
+  var RES={'1920x1080':'FHD','1920x1200':'FHD+','2560x1600':'2.5K','2880x1800':'3K'};
+
+  function $(id){return document.getElementById(id)}
+  function money(v){return v==null?'—':'S$'+v.toLocaleString('en-SG')}
+  function ramTxt(x){return x.ramText||(x.ram+'GB')}
+  function ssdTxt(x){return x.ssdText||(x.ssd>=1024?(x.ssd/1024)+'TB':x.ssd+'GB')}
+  function scr(x){return x.size+'″ '+(RES[x.w+'x'+x.h]||'')+' ('+x.w+'×'+x.h+')'}
+  function sel(){try{var s=JSON.parse(localStorage.getItem('asus-ml-sel2'));if(Array.isArray(s))return s.filter(function(i){return L.some(function(x){return x.id===i})}).slice(0,4)}catch(e){}return null}
+  var selected=sel()||['a16d','a16','f16c','v14c7'];
+  function save(){try{localStorage.setItem('asus-ml-sel2',JSON.stringify(selected))}catch(e){}}
+
+  /* ---------- list ---------- */
+  function filtered(){
+    var mp=+$('f-price').value, mr=+$('f-ram').value, nv=$('f-nv').checked, s=$('f-sort').value;
+    var r=L.filter(function(x){
+      return (x.price==null||x.price<=mp)&&x.ram>=mr&&(!nv||x.nv);
+    });
+    var key={price:function(x){return x.price},cuda:function(x){return x.cuda?-x.cuda:null},value:function(x){return x.value},ram:function(x){return -x.ram},ssd:function(x){return -x.ssd}}[s];
+    r.sort(function(a,b){
+      var A=key(a),B=key(b);
+      if(A==null&&B==null)return 0; if(A==null)return 1; if(B==null)return -1;
+      return A-B||((a.price||1e9)-(b.price||1e9));
+    });
+    return r;
+  }
+  function renderList(){
+    var r=filtered(), full=selected.length>=4;
+    $('f-price-out').textContent='S$'+(+$('f-price').value).toLocaleString('en-SG');
+    $('list-count').textContent='('+r.length+' of '+L.length+' shown)';
+    if(!r.length){$('rows').innerHTML='<tr><td colspan="9" class="empty">No laptop matches these filters. Raise the price limit or switch off “NVIDIA GPU only”.</td></tr>';return}
+    $('rows').innerHTML=r.map(function(x){
+      var on=selected.indexOf(x.id)>-1, f=FIT[x.fit];
+      return '<tr class="'+(on?'sel':'')+'">'
+        +'<td><input type="checkbox" data-id="'+x.id+'" aria-label="Compare '+x.name+' '+x.model+'" '+(on?'checked ':'')+((!on&&full)?'disabled ':'')+'style="width:18px;height:18px;accent-color:var(--accent)"></td>'
+        +'<td><div class="mname">'+x.name+(x.pick?' <span class="chip cuda">Best value</span>':'')+(x.oos?' <span class="chip arm">Out of stock</span>':'')+'</div><div class="msub">'+x.model+'</div></td>'
+        +'<td class="n num"><b>'+money(x.price)+'</b>'+(x.up?'<div class="msub" style="text-decoration:line-through">'+money(x.up)+'</div>':'')+(x.src==='b'?'<div class="msub">brochure price</div>':'')+'</td>'
+        +'<td>'+x.cpu+'<div class="msub">'+x.cores+' cores, up to '+x.boost+'GHz</div></td>'
+        +'<td>'+x.gpu+(x.vram?'<div class="msub">'+(x.vramText||(x.vram+'GB'))+' VRAM</div>':'')+'</td>'
+        +'<td class="n">'+ramTxt(x)+'<div class="msub">'+x.ramType+', '+x.slot.toLowerCase()+'</div></td>'
+        +'<td class="n">'+ssdTxt(x)+'<div class="msub">PCIe '+x.pcie+'</div></td>'
+        +'<td>'+scr(x)+'<div class="msub">'+x.panel+(x.hz?', '+x.hz+'Hz':'')+(x.touch?', touch':'')+'</div></td>'
+        +'<td><span class="chip '+f[1]+'">'+f[0]+'</span></td>'
+        +'</tr>';
+    }).join('');
+  }
+
+  /* ---------- side by side ---------- */
+  var ROWS=[
+    {l:'Price today',v:function(x){return x.price},f:function(x){return money(x.price)+(x.oos?' (out of stock)':'')+(x.src==='b'?' (brochure)':'')},best:'min'},
+    {l:'Usual price',f:function(x){return x.up?money(x.up):'—'}},
+    {l:'ML fit',f:function(x){return FIT[x.fit][0]}},
+    {l:'GPU',f:function(x){return x.gpu}},
+    {l:'VRAM',v:function(x){return x.vram||null},f:function(x){return x.vram?(x.vramText||(x.vram+'GB')):'shared with RAM'},best:'max'},
+    {l:'CUDA cores',v:function(x){return x.cuda||null},f:function(x){return x.cudaText||(x.cuda?x.cuda.toLocaleString('en-SG'):'no CUDA')},best:'max'},
+    {l:'S$ per 1,000 CUDA cores',v:function(x){return x.value},f:function(x){return x.value?'S$'+Math.round(x.value):'—'},best:'min'},
+    {l:'CPU',f:function(x){return x.cpu}},
+    {l:'CPU cores',v:function(x){return x.cores},f:function(x){return x.cores+' cores, up to '+x.boost+'GHz'},best:'max'},
+    {l:'RAM',v:function(x){return x.ram},f:ramTxt,best:'max'},
+    {l:'RAM type',f:function(x){return x.ramType+' · '+x.slot}},
+    {l:'Storage',v:function(x){return x.ssd},f:function(x){return ssdTxt(x)+' PCIe '+x.pcie},best:'max'},
+    {l:'Screen',v:function(x){return x.px},f:scr,best:'max'},
+    {l:'Panel / refresh',f:function(x){return x.panel+(x.hz?', '+x.hz+'Hz':'')+(x.touch?', touch':'')}},
+    {l:'NPU',v:function(x){return x.npu||null},f:function(x){return x.npu?x.npu+' TOPS':'none listed'},best:'max'},
+    {l:'Weight',v:function(x){return x.kg},f:function(x){return x.kgText||(x.kg?x.kg+'kg':'not listed')},best:'min'}
+  ];
+  function renderCmp(){
+    var items=selected.map(function(i){return L.filter(function(x){return x.id===i})[0]}).filter(Boolean);
+    $('sel-count').textContent='('+items.length+' of 4 selected)';
+    if(!items.length){$('cmp').innerHTML='<p class="empty">Tick up to four models in the list below to compare them here.</p>';return}
+    var h='<table class="cmp"><thead><tr><th></th>'+items.map(function(x){
+      return '<th><div class="mname">'+x.name+'</div><div class="msub">'+x.model+'</div><button class="btn rm" type="button" data-rm="'+x.id+'">Remove</button></th>';
+    }).join('')+'</tr></thead><tbody>';
+    ROWS.forEach(function(r){
+      var best=null;
+      if(r.best&&items.length>1){
+        var vs=items.map(function(x){return r.v(x)}).filter(function(v){return v!=null});
+        if(vs.length>1&&Math.min.apply(null,vs)!==Math.max.apply(null,vs))best=r.best==='min'?Math.min.apply(null,vs):Math.max.apply(null,vs);
+      }
+      h+='<tr><th scope="row">'+r.l+'</th>'+items.map(function(x){
+        var v=r.v?r.v(x):null;
+        return '<td class="'+((best!==null&&v===best)?'best':'')+'">'+r.f(x)+'</td>';
+      }).join('')+'</tr>';
+    });
+    $('cmp').innerHTML=h+'</tbody></table>';
+  }
+  function renderAll(){renderList();renderCmp()}
+
+  $('rows').addEventListener('change',function(e){
+    var id=e.target.getAttribute('data-id'); if(!id)return;
+    var i=selected.indexOf(id);
+    if(e.target.checked&&i<0&&selected.length<4)selected.push(id);
+    if(!e.target.checked&&i>-1)selected.splice(i,1);
+    save();renderAll();
+  });
+  $('cmp').addEventListener('click',function(e){
+    var id=e.target.getAttribute('data-rm'); if(!id)return;
+    selected=selected.filter(function(i){return i!==id});save();renderAll();
+  });
+  ['f-price','f-ram','f-nv','f-sort'].forEach(function(id){$(id).addEventListener('input',renderList)});
+  $('f-reset').addEventListener('click',function(){
+    $('f-price').value=7000;$('f-ram').value=0;$('f-nv').checked=false;$('f-sort').value='price';renderList();
+  });
+
+  /* ---------- fit calculator ---------- */
+  function calc(){
+    var b=+$('c-size').value, mode=$('c-mode').value, bytes=+$('c-prec').value, cap=+$('c-vram').value, need;
+    $('c-prec-field').hidden=(mode!=='infer');
+    if(mode==='infer')need=b*bytes*1.2;
+    else if(mode==='qlora')need=b*0.5*1.6+0.5;
+    else need=b*16;
+    var pct=Math.min(100,need/cap*100), over=need>cap;
+    $('c-need').textContent=(need<10?need.toFixed(1):Math.round(need))+'GB';
+    $('c-cap').textContent=cap+'GB VRAM';
+    var bar=$('c-bar'); bar.style.width=pct+'%'; bar.className=over?'over':'';
+    var v=$('c-verdict'), d=$('c-detail');
+    if(need<=cap*0.75){v.className='verdict-line ok';v.textContent='Fits comfortably on the GPU.';d.textContent='Leaves headroom for longer inputs and bigger batches.'}
+    else if(!over){v.className='verdict-line maybe';v.textContent='Tight fit.';d.textContent='It may run, but expect small batches and short context. Close other GPU-using apps.'}
+    else{v.className='verdict-line no';v.textContent='Does not fit in VRAM.';
+      d.textContent=mode==='full'
+        ?'Full training needs around 16 bytes per parameter. Use a smaller model, fine-tune with QLoRA, or rent a cloud GPU.'
+        :'Try a smaller model or a more compressed version. Spilling into system RAM works but is many times slower.'}
+  }
+  ['c-size','c-mode','c-prec','c-vram'].forEach(function(id){$(id).addEventListener('input',calc)});
+
+  renderAll();calc();
+})();
+</script>
