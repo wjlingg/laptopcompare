@@ -4,7 +4,7 @@ Project: a single-file HTML guide and comparison tool for choosing an ASUS lapto
 
 ## Ground rules
 
-- **One file.** Everything lives in `asus-ml-laptop-guide.html` (inline CSS and JS). Keep it self-contained. No framework or build step.
+- **One file.** Everything lives in `index.html` (inline CSS and JS). Keep it self-contained. No framework or build step.
 - **Audience.** A beginner who wants to understand laptop specs and pick a cost-efficient machine for decent, non-heavy ML. Write plain, direct sentences. No jargon without a one-line explanation.
 - **Currency and region.** S$, GST included, ASUS Singapore store.
 - **Never invent specs.** If the source does not state a value, use `null` / "not stated" / "Not stated". VRAM and CUDA cores come from NVIDIA public specs and must stay flagged as such in the page copy.

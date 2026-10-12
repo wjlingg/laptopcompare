@@ -2,7 +2,7 @@
 
 A single-page guide to choosing an ASUS laptop in Singapore for day-to-day machine learning on a budget.
 
-Open `asus-ml-laptop-guide.html` in any browser. No build step, no dependencies (it loads three Google Fonts and falls back to system fonts offline).
+Open `index.html` in any browser. No build step, no dependencies (it loads three Google Fonts and falls back to system fonts offline).
 
 ## What the page contains
 
@@ -23,6 +23,6 @@ Prices change often. Re-check them before relying on the page. See `PROGRESS.md`
 
 ## Files
 
-- `asus-ml-laptop-guide.html`: the whole page (HTML, CSS and JS inline).
+- `index.html`: the whole page (HTML, CSS and JS inline).
 - `CLAUDE.md`: working notes for Claude (or any contributor) editing the page.
 - `PROGRESS.md`: what is done, how the data was gathered and how to refresh it, known gaps, and next ideas.

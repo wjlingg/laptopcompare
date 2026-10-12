@@ -42,7 +42,7 @@ The store blocks `WebFetch` (403), so use a browser session on `https://sg.store
 - ProArt P16 display (3K OLED touch) and 1.85kg weight are from the brochure spec table.
 - Other retailers (Challenger, Harvey Norman, Lazada, Shopee) are not checked and may price differently.
 - No benchmarks. "Cost per 1,000 CUDA cores" is a rough guide only; real speed depends on power limit and cooling.
-- Not published as a hosted page. GitHub Pages is off.
+- Hosted via GitHub Pages: https://wjlingg.github.io/laptopcompare/ (the page must stay named `index.html`; Pages serves the README otherwise).
 
 ## Ideas for next time
 
@@ -51,5 +51,5 @@ The store blocks `WebFetch` (403), so use a browser session on `https://sg.store
 - Include the non-GPU Vivobooks and Zenbooks with full specs, and weight/battery for TUF/ROG from ASUS product pages.
 - Track price history (date-stamped snapshots of `L`) so the page can show whether a price is a good deal.
 - Add a short "set up PyTorch with CUDA on Windows (WSL2)" section.
-- Enable GitHub Pages (rename to `index.html`) for a shareable link.
+- Done: GitHub Pages is on and serves `index.html` at https://wjlingg.github.io/laptopcompare/
 - Compare against other brands, or against renting cloud GPUs, for the same money.
